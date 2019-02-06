@@ -3,7 +3,6 @@ import styled, { ThemeProvider, injectGlobal } from 'styled-components';
 import Header from './Header';
 import Meta from './Meta';
 
-
 const theme = {
   red: '#FF0000',
   black: '#393939',
@@ -16,8 +15,8 @@ const theme = {
 };
 
 const StyledPage = styled.div`
- background: white;
- color: ${props => props.theme.black};
+  background: white;
+  color: ${props => props.theme.black};
 `;
 
 const Inner = styled.div`
@@ -61,11 +60,9 @@ export default class Page extends Component {
         <StyledPage>
           <Meta />
           <Header />
-          <Inner>
-            {this.props.children}
-          </Inner>
+          <Inner>{this.props.children}</Inner>
         </StyledPage>
       </ThemeProvider>
-    )
+    );
   }
 }
