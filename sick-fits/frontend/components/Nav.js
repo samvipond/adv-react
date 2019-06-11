@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import NavStyles from './styles/NavStyles';
 import User from './User';
+import Signout from './Signout';
 
 const Nav = () => (
 
@@ -21,6 +22,9 @@ const Nav = () => (
             <Link href="/me">
               <a>Me</a>
             </Link>
+            <Link href="/signout">
+              <Signout />
+            </Link>
           </>
         )}
         {!me && (
@@ -31,7 +35,6 @@ const Nav = () => (
       </NavStyles>
     )}
   </User>
-
 );
 
 export default Nav;
