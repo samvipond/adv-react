@@ -31,7 +31,7 @@ class TakeMyMoney extends React.Component {
   onToken = (res, createOrder) => {
     console.log('onToken called');
     console.log(res.id);
-    // manually call the mutation once we have the stripe token
+    // manually call the mutation once we have the stripe token!
     createOrder({
       variables: {
         token: res.id,
