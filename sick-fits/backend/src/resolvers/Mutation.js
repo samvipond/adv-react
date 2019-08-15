@@ -268,7 +268,7 @@ const Mutations = {
         cart {
             id
             quantity
-            item { title price id description image }
+            item { title price id description image largeImage }
         }}`
     );
     // re-calculate the total for the price
@@ -284,9 +284,33 @@ const Mutations = {
       source: args.token,
     });
     // convert the cart items to orderItems
+    const orderItems = user.cart.map(cartItem => {
+      const orderItem = {
+        ...cartItem.item,
+        quantity: cartItem.quantity,
+        user: { connect: { id: userId } },
+      }
+      delete orderItem.id;
+      return orderItem;
+    });
     // create the order
+    const order = await ctx.db.mutation.createOrder({
+      data: {
+        total: charge.amount,
+        charge: charge.id,
+        items: { create: orderItems },
+        user: { connect: { id: userId } },
+      },
+    });
     // clean up - clear the user's cart, delete cartItems
+    const cartItemIds = user.cart.map(cartItem => cartItem.id);
+    await ctx.db.mutation.deleteManyCartItems({
+      where: {
+        id_in: cartItemIds,
+      },
+    });
     // return the order to the client
+    return order;
   }
 };
 
