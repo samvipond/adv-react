@@ -30,12 +30,12 @@ class RemoveFromCart extends React.Component {
 
   // this gets called as soon as we get as response back from the server after a mutation has been performed
   update = (cache, payload) => {
-    console.log('Running remove from cart update fn');
+    // console.log('Running remove from cart update fn');
     // first read the cache
     const data = cache.readQuery({
       query: CURRENT_USER_QUERY
     });
-    console.log(data);
+    // console.log(data);
     // remove that item from the cart
     const cartItemId = payload.data.removeFromCart.id;
     data.me.cart = data.me.cart.filter(cartItem => cartItem.id !== cartItemId);
@@ -67,9 +67,10 @@ class RemoveFromCart extends React.Component {
             &times;
           </BigButton>
         )}
-      </Mutation >
+      </Mutation>
     );
   }
 }
 
 export default RemoveFromCart;
+export { REMOVE_FROM_CART_MUTATION };
